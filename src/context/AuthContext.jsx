@@ -32,15 +32,18 @@ export const AuthProvider = ({ children }) => {
     }
 
     const signin = async (user) => {
+        setLoading(true);
         try {
             const res = await authService.login(user);
             localStorage.setItem('token', res.data.token);
+
             setUser(res.data);
             setIsAuthenticaded(true);
         } catch (error) {
             console.log(error)
             setErrors(error.response.data);
         }
+        setLoading(false);
     }
 
     const logout = () => {
