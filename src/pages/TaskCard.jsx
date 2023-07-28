@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useTask } from '../context/TaskContext';
+import { useTaskContext } from '../context/TaskContext';
 
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -8,24 +8,23 @@ dayjs.extend(utc);
 export const TaskCard = ({ task }) => {
     const { idtask, title, description, date, createdAt, complete } = task;
 
-    const { completeTask, deleteTask } = useTask();
+    const { completeTask, deleteTask } = useTaskContext();
 
     return (
         <>
             <div className="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-                <div className={complete ? 'card border-success' : 'card border-danger'}>
+                <div className={'card border-' + (complete ? 'success' : 'danger') + ' border-2'}>
                     <div className="card-header">
                         <h4 className="card-title mt-1">{title}</h4>
                     </div>
                     <div className="card-body">
-                        <p className="card-text">{description}</p>
-                        <h6 className="card-subtitle mb-3 text-muted">Date: {dayjs(task.date).utc().format('DD/MM/YYYY')}</h6>
-
+                        <textarea readOnly className='form-control' defaultValue={description} rows="10"></textarea>
+                        <h6 className="card-subtitle mb-3 text-muted mt-4">Date: {dayjs(date).utc().format('DD/MM/YYYY')}</h6>
                         <button type='button'
-                            className={complete ? 'btn btn-outline-danger me-1' : 'btn btn-outline-success me-1'}
+                            className={'btn btn-outline-' + (complete ? 'success' : 'danger') + ' me-1'}
                             onClick={() => completeTask(idtask)}
                         >
-                            {complete ? 'Incompleted ⛔' : 'Completed ✅'}
+                            {complete ? 'Incomplete ⛔' : 'Completed ✅'}
                         </button>
                         {
                             !complete &&
@@ -41,7 +40,7 @@ export const TaskCard = ({ task }) => {
                         }
 
 
-                        <h6 className='card-subtitle mt-2 text-muted'>Create at: {dayjs(task.createdAt).utc().format('DD/MM/YYYY HH:mm:ss')}</h6>
+                        <h6 className='card-subtitle mt-2 text-muted'>Created at: {dayjs(createdAt).utc().format('DD/MM/YYYY HH:mm:ss')}</h6>
                     </div>
                 </div>
             </div>

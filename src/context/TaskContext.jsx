@@ -5,57 +5,70 @@ export const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
     const [tasks, setTasks] = useState([]);
-    const [isLoadingTasks, setIsLoadingTasks] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     const getTasks = async () => {
         try {
+            setLoading(true);
             const res = await taskService.getAll();
             setTasks(res.data);
-            setIsLoadingTasks(false);
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false);
         }
     }
 
     const createTask = async (task) => {
         try {
+            setLoading(true);
             const res = await taskService.create(task);
             console.log(res.data)
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false);
         }
     }
 
     const getTask = async (idtask) => {
         try {
+            setLoading(true);
             const res = await taskService.getById(idtask);
             return res.data;
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false);
         }
     }
 
     const updateTask = async (idtask, task) => {
         try {
+            setLoading(true);
             const res = await taskService.update(idtask, task);
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false);
         }
     }
 
     const deleteTask = async (id) => {
         try {
+            setLoading(true);
             const res = await taskService.delete(id);
-            if (res.status === 200) {
-                let newTasks = tasks.filter(task => task.idtask !== id);
-                setTasks(newTasks);
-            }
+            let newTasks = tasks.filter(task => task.idtask !== id);
+            setTasks(newTasks);
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false);
         }
     }
     const completeTask = async (id) => {
         try {
+            setLoading(true);
             const res = await taskService.complete(id);
             const newTasks = [...tasks];
             const index = tasks.findIndex((task => task.idtask === id));
@@ -63,13 +76,15 @@ export const TaskProvider = ({ children }) => {
             setTasks(newTasks);
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false);
         }
     }
 
     return (
         <TaskContext.Provider value={{
             tasks,
-            isLoadingTasks,
+            loading,
             getTasks,
             createTask,
             getTask,
@@ -83,10 +98,10 @@ export const TaskProvider = ({ children }) => {
 }
 
 
-export const useTask = () => {
+export const useTaskContext = () => {
     const context = useContext(TaskContext);
     if (!context) {
-        throw new Error("useTask must be used within a TaskProvider");
+        throw new Error("useTaskContext must be used within a TaskProvider");
     }
     return context;
 }

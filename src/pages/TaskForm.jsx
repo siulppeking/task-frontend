@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate, useParams } from 'react-router-dom';
-import { useTask } from '../context/TaskContext';
-import { Navbar } from '../components/Navbar';
-
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import { Navbar } from '../components/Navbar';
+import { useTaskContext } from '../context/TaskContext';
+import { Loading } from '../components/Loading';
 dayjs.extend(utc);
 
 export const TaskForm = () => {
@@ -18,7 +18,7 @@ export const TaskForm = () => {
 
   const params = useParams();
 
-  const { createTask, getTask, updateTask } = useTask();
+  const { createTask, getTask, updateTask, loading } = useTaskContext();
 
 
   useEffect(() => {
@@ -54,7 +54,11 @@ export const TaskForm = () => {
 
   return (
     <>
+
       <Navbar />
+      {
+        loading && <Loading />
+      }
       <div className="container-fluid">
         <div className="row d-flex justify-content-center mt-3">
           <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -81,7 +85,7 @@ export const TaskForm = () => {
                   <div className="form-group">
                     <label htmlFor="description" className="form-label mt-1">Description</label>
                     <textarea type="text"
-                      rows="3"
+                      rows="10"
                       className="form-control"
                       placeholder="Description"
                       id='description'
@@ -104,8 +108,11 @@ export const TaskForm = () => {
                   </div>
 
                   <button className="btn btn-outline-success mt-2" type="submit">
-                    Save
+                    Save 💾
                   </button>
+                  <Link className="btn btn-outline-danger mt-2 ms-1" to={'/task'}>
+                    Cancel 🚫
+                  </Link>
                 </form>
               </div>
             </div>

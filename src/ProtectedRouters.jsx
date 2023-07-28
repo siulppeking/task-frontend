@@ -9,7 +9,7 @@ export const ProtectedRouters = () => {
     if (loading) return <Loading />;
     if (!isAuthenticaded && !loading) return <Navigate to="/login" replace />;
 
-    return (<Outlet />);
+    return <Outlet />;
 }
 
 
