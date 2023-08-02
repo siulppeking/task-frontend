@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { LoginPage, RegisterPage, TaskPage, TaskForm, HomePage } from './pages';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRouters } from './ProtectedRouters';
-import { TaskProvider } from './context/TaskContext';
+import { TaskProvider } from './contexts/TaskContext';
 
 export const TaskApp = () => {
     return (

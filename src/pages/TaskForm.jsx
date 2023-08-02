@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { Navbar } from '../components/Navbar';
-import { useTaskContext } from '../context/TaskContext';
+import { useTaskContext } from '../contexts/TaskContext';
 import { Loading } from '../components/Loading';
 dayjs.extend(utc);
 
