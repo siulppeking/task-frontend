@@ -22,8 +22,7 @@ export const TaskProvider = ({ children }) => {
     const createTask = async (task) => {
         try {
             setLoading(true);
-            const res = await taskService.create(task);
-            console.log(res.data)
+            await taskService.create(task);
         } catch (error) {
             console.log(error)
         } finally {
@@ -46,7 +45,7 @@ export const TaskProvider = ({ children }) => {
     const updateTask = async (idtask, task) => {
         try {
             setLoading(true);
-            const res = await taskService.update(idtask, task);
+            await taskService.update(idtask, task);
         } catch (error) {
             console.log(error)
         } finally {
@@ -57,7 +56,7 @@ export const TaskProvider = ({ children }) => {
     const deleteTask = async (id) => {
         try {
             setLoading(true);
-            const res = await taskService.delete(id);
+            await taskService.delete(id);
             let newTasks = tasks.filter(task => task.idtask !== id);
             setTasks(newTasks);
         } catch (error) {
@@ -69,7 +68,7 @@ export const TaskProvider = ({ children }) => {
     const completeTask = async (id) => {
         try {
             setLoading(true);
-            const res = await taskService.complete(id);
+            await taskService.complete(id);
             const newTasks = [...tasks];
             const index = tasks.findIndex((task => task.idtask === id));
             newTasks[index].complete = !newTasks[index].complete;

@@ -7,8 +7,8 @@ export const Loading = () => {
         <div className="modal-preload">
             <div className="circles">
                 <div className="circle"></div>
-                <div className="mainLogo"><i className="preloadEc"></i>
-                    <img src={svg} alt="" />
+                <div className="mainLogo">
+                    <img src={svg} alt="" style={{opacity: 0.45, width: '55%', marginTop: '36px'}} />
                 </div>
             </div>
         </div>

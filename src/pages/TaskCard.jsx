@@ -18,7 +18,7 @@ export const TaskCard = ({ task }) => {
                         <h4 className="card-title mt-1">{title}</h4>
                     </div>
                     <div className="card-body">
-                        <textarea readOnly className='form-control' defaultValue={description} rows="10"></textarea>
+                        <textarea readOnly disabled className='form-control' value={description} rows="10"></textarea>
                         <h6 className="card-subtitle mb-3 text-muted mt-4">Date: {dayjs(date).utc().format('DD/MM/YYYY')}</h6>
                         <button type='button'
                             className={'btn btn-outline-' + (complete ? 'success' : 'danger') + ' me-1'}
